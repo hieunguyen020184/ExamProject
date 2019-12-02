@@ -76,6 +76,16 @@ export const Home = () => {
 
   const [actualAnswer, setActualAnswer] = useState([]);
 
+  // const totalScore = () => {
+  //  {actualAnswer.map((e, i) => (
+  //    {
+    
+  //         // {  key={i.toString}
+  //           e = Questions[i].Answer? setScore(score++): setScore(score++)}
+
+  //  ))
+  // };
+
   const pressTouchable = () => {
     // setIndexChoose(True)
     let m = index;
