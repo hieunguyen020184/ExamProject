@@ -39,3 +39,26 @@ git fetch
 ```python
 git pull
 ```
+# Command
+
+- khi project mình bị lỗi do mình import sai (khi mình import bằng suggestion của vscode, mà xóa xog vẫn bị), thì ta tắt `bundle`, sau đó chạy lại lệnh
+
+```python
+yarn cache clean && yarn start
+```
+
+- khi bị lỗi liên quan đến build có 2 phương án
+
+## 1 mở project bằng android studio để tự sync
+
+## 2 run 
+
+```python
+cd android && ./gradlew clean && cd ..
+```
+# Không còn lựa chọn nào nữa
+
+```python
+rm -rf node_module && rm -rf yarn.lock && yarn
+```
+

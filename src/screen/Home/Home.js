@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import {QuestionBox} from '../../component/QuestionBox';
 import {AnswerBox} from '../../component/AnswerBox';
 // answer = []
@@ -58,17 +65,12 @@ const Questions = [
       '2. fghjkfghgfh',
       '3. fghjklcdfgfh  fghgfh',
       '4.dfghjfghgfh',
-      '5. fghjkfghgfh',
-      '6. fghjklcdfgfh  fghgfh',
-      '7.dfghjfghgfh',
-      '8. fghjkfghgfh',
-      '9. fghjklcdfgfh  fghgfh',
     ],
     Answer: 0,
   },
 ];
 
-export const Home = () => {
+export const Home = ({navigation}) => {
   const [index, setIndex] = useState(0);
   const [indexChoose, setIndexChoose] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -76,16 +78,18 @@ export const Home = () => {
 
   const [actualAnswer, setActualAnswer] = useState([]);
 
-  // const totalScore = () => {
-  //  {actualAnswer.map((e, i) => (
-  //    {
-    
-  //         // {  key={i.toString}
-  //           e = Questions[i].Answer? setScore(score++): setScore(score++)}
-
-  //  ))
-  // };
-
+  const totalScore = () => {
+    setScore(0);
+    let m = 0;
+    for (let i = 0; i < Questions.length; i++) {
+      if (actualAnswer[i] === Questions[i].Answer) { 
+        m = m + 1;
+        setScore(m);
+      } else {
+      }
+    }
+  };
+  console.log('score', score);
   const pressTouchable = () => {
     // setIndexChoose(True)
     let m = index;
@@ -93,7 +97,8 @@ export const Home = () => {
     if (m < Questions.length) {
       setIndex(m);
     } else {
-     setIsDone(true);
+      totalScore();
+      setIsDone(true);
     }
     // setActualAnswer(AnswerArray)
   };
@@ -111,38 +116,115 @@ export const Home = () => {
     setActualAnswer([...preArr]);
   };
   //let Q = Questions[0];
+  let colorrr = 255;
   return (
     <View style={s.flex}>
-      <QuestionBox
-        actualAnswerSelect={i => onAnswerArray(i)}
-        color="grey"
-        question={Questions[index]}
-        ActualAnswer={actualAnswer[index]}
-      />
-      <TouchableOpacity onPress={pressTouchable}>
-       { <Text> {!(index === Questions.length - 1) ? 'NEXT' : 'DONE'} </Text>}
-      </TouchableOpacity>
+      <ImageBackground
+        style={{
+          resizeMode: 'cover',
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        source={{
+          uri:
+            'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+        }}>
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: `rgba(155, 0, ${colorrr}, 0.7)`,
+          }}></View>
+      </ImageBackground>
+      <View
+        style={{
+          flex: 1,
+          width: '100%',
+          paddingTop: 20,
+          alignItems: 'stretch',
+          position: 'absolute',
+        }}>
 
-      {
-        // toan tu 3 ngoi
-        // điềukiện ? đúngthìlàm : khôngđúngthìlàm
-        // điềukiện && đúngmớilàm
-      }
-      {index > 0 && (
-        <TouchableOpacity onPress={pressBackTouchable}>
-          <Text> BACK</Text>
+        <QuestionBox
+          actualAnswerSelect={i => onAnswerArray(i)}
+          color="pink"
+          question={Questions[index]}
+          ActualAnswer={actualAnswer[index]}
+        />
+        <TouchableOpacity
+          style={{
+            alignSelf: 'center',
+            width: 100,
+            height: 40,
+            backgroundColor: 'brown',
+            borderRadius: 20,
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: 20,
+          }}
+          onPress={pressTouchable}>
+          {<Text>{!(index === Questions.length - 1) ? 'NEXT' : 'DONE'}</Text>}
         </TouchableOpacity>
-      )}
-      
-      <Text>{actualAnswer}</Text>
-      {isDone && <Text > YOUR SCORE: {score} </Text> }
+
+        {
+          // toan tu 3 ngoi
+          // điềukiện ? đúngthìlàm : khôngđúngthìlàm
+          // điềukiện && đúngmớilàm
+        }
+        {index > 0 && (
+          <TouchableOpacity
+            style={{
+              alignSelf: 'center',
+              width: 100,
+              height: 40,
+              backgroundColor: 'brown',
+              borderRadius: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: 20,
+            }}
+            onPress={pressBackTouchable}>
+            <Text> BACK</Text>
+          </TouchableOpacity>
+        )}
+        {isDone && (
+          <Text
+            style={{
+              alignSelf: 'center',
+              backgroundColor: 'brown',
+              //justifyContent: 'center',
+              borderColor: 'red',
+              borderRadius: 20,
+              padding: 10,
+            }}>
+            YOUR SCORE: {score}
+          </Text>
+        )}
+        <Text>{actualAnswer}</Text>
+        <TouchableOpacity
+          style={{
+            alignSelf: 'center',
+            width: 100,
+            height: 40,
+            backgroundColor: 'brown',
+            borderRadius: 20,
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: 20,
+          }}
+          onPress={() => navigation.navigate('Profile')}>
+          <Text>Profile</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 const s = StyleSheet.create({
   flex: {
     flex: 1,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
     //justifyContent: 'center',
     alignItems: 'center',
   },

@@ -10,23 +10,34 @@ export const AnswerBox = ({
 }) => {
   //const pressTouchable = () => {};
   return (
-    <View style = {{borderWidth:5, borderColor:'brown'}}>
+    <View>
       {answers.map((e, i) => (
-        <TouchableOpacity onPress={() => pressTouchable(i)}>
-          <Text
-            key={i.toString}
-            style={
-              trueIndex === i
-                ? trueIndex === trueAnswer
-                  ? s.ActiveTrue
-                  : s.ActiveFalse
-                : s.NoneActive
-            }>
-            {e}
-          </Text>
-        </TouchableOpacity>
+        <View
+          style={{
+            borderRadius: 5,
+            borderWidth: 1,
+            borderColor: 'blue',
+            marginLeft: 10,
+            marginRight: 5,
+            paddingLeft: 0,
+            marginTop: 3,
+            marginBottom: 3,
+          }}>
+          <TouchableOpacity onPress={() => pressTouchable(i)}>
+            <Text
+              key={i.toString}
+              style={
+                trueIndex === i
+                  ? trueIndex === trueAnswer
+                    ? s.ActiveTrue
+                    : s.ActiveFalse
+                  : s.NoneActive
+              }>
+              {e}
+            </Text>
+          </TouchableOpacity>
+        </View>
       ))}
-<Text>{trueIndex}</Text>
     </View>
   );
 };
