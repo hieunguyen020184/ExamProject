@@ -24,30 +24,30 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 // test change on git
 export const App = () => {
-  const [isRun, setIsRun] = useState(false);
-  const anim = new Animated.Value(0);
+  // const [isRun, setIsRun] = useState(false);
+  // const anim = new Animated.Value(0);
 
-  const animm = Animated.timing(anim, {
-    toValue: 1,
-    duration: 500,
-  });
-  const animmOut = Animated.timing(anim, {
-    toValue: 0,
-    duration: 500,
-  });
+  // const animm = Animated.timing(anim, {
+  //   toValue: 1,
+  //   duration: 500,
+  // });
+  // const animmOut = Animated.timing(anim, {
+  //   toValue: 0,
+  //   duration: 500,
+  // });
 
-  const _onPressBigButton = (cbt, cbf) => {
-    if (isRun) {
-      cbt
-    } else {
-      cbf
-    }
-    setIsRun(!isRun);
-  };
+  // const _onPressBigButton = (cbt, cbf) => {
+  //   if (isRun) {
+  //     cbt
+  //   } else {
+  //     cbf
+  //   }
+  //   setIsRun(!isRun);
+  // };
   return (
-    <>
+   
       <RootStack />
-      <View
+      /* <View
         style={{
           width: '100%',
           height: 70,
@@ -101,8 +101,8 @@ export const App = () => {
             </Text>
           </View>
         </Animated.View>
-      </View>
-    </>
+    //   </View>
+    // </> */
   );
 };
 

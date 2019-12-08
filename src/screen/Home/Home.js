@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,89 +6,114 @@ import {
   Button,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 import {QuestionBox} from '../../component/QuestionBox';
 import {AnswerBox} from '../../component/AnswerBox';
-// answer = []
-// day props asnwerbox => questionbox => home => index
-// index cua mang answer
-// answer la 1 property trong question
-// indexQuestion cua mang question
-// indexQuestion = 0
-// index = 1
-// gan index vo vi tri indexQuestion trong mang AnswerArray
-// CACH GAN
-// AnswerArray[indexQuestion] = index
-const Questions = [
-  {
-    Question: 'Q_1. 11111/',
-    Answers: [
-      '1.dfghjfghgfh',
-      '2. fghjkfghgfh',
-      '3. fghjklcdfgfh  fghgfh',
-      '4.gg ghtyjj fghgfh',
-      '5. refre vdfgtr fghgfh',
-    ],
-    Answer: 1,
-  },
-  {
-    Question: 'Q_2. ysadfghjk,kj.k/',
-    Answers: [
-      '1.dfghjfghgfh',
-      '2. fghjkfghgfh',
-      '3. fghjklcdfgfh  fghgfh',
-      '4.gg ghtyjj fghgfh',
-      '5. refre vdfgtr fghgfh',
-    ],
-    Answer: 2,
-  },
-  {
-    Question: 'Q_3. ysadfghjk,kj.k/',
-    Answers: [
-      '1.dfghjfghgfh',
-      '2. fghjkfghgfh',
-      '3. fghjklcdfgfh  fghgfh',
-      '4.gg ghtyjj fghgfh',
-      '5. refre vdfgtr fghgfh',
-    ],
-    Answer: 3,
-  },
-  {
-    Question: 'Q_4. ysadfghjk,kj.k/',
-    Answers: ['1.dfghjfghgfh', '2. fghjkfghgfh', '3. fghjklcdfgfh  fghgfh'],
-    Answer: 0,
-  },
-  {
-    Question: 'Q_5. ysadfghjk,kj.k/',
-    Answers: [
-      '1.dfghjfghgfh',
-      '2. fghjkfghgfh',
-      '3. fghjklcdfgfh  fghgfh',
-      '4.dfghjfghgfh',
-    ],
-    Answer: 0,
-  },
-];
+
+// const Questions = [
+//   {
+//     Question: 'Q_1. 11111/',
+//     Answers: [
+//       '1.dfghjfghgfh',
+//       '2. fghjkfghgfh',
+//       '3. fghjklcdfgfh  fghgfh',
+//       '4.gg ghtyjj fghgfh',
+//       '5. refre vdfgtr fghgfh',
+//     ],
+//     Answer: 1,
+//     Explain:
+//       '11111111111111111111111111111111111111111111111111111111111111111',
+//   },
+//   {
+//     Question: 'Q_2. ysadfghjk,kj.k/',
+//     Answers: [
+//       '1.dfghjfghgfh',
+//       '2. fghjkfghgfh',
+//       '3. fghjklcdfgfh  fghgfh',
+//       '4.gg ghtyjj fghgfh',
+//       '5. refre vdfgtr fghgfh',
+//     ],
+//     Answer: 2,
+//     Explain:
+//       '22222222222222222222222222222222222222222222222222222222222222222222',
+//   },
+//   {
+//     Question: 'Q_3. ysadfghjk,kj.k/',
+//     Answers: [
+//       '1.dfghjfghgfh',
+//       '2. fghjkfghgfh',
+//       '3. fghjklcdfgfh  fghgfh',
+//       '4.gg ghtyjj fghgfh',
+//       '5. refre vdfgtr fghgfh',
+//     ],
+//     Answer: 3,
+//     Explain:
+//       '3333333333333333333333333333333333333333333333333333333333333333333333333',
+//   },
+//   {
+//     Question: 'Q_4. ysadfghjk,kj.k/',
+//     Answers: ['1.dfghjfghgfh', '2. fghjkfghgfh', '3. fghjklcdfgfh  fghgfh'],
+//     Answer: 0,
+//     Explain:
+//       '44444444444444444444444444444444444444444444444444444444444444444444444444',
+//   },
+//   {
+//     Question: 'Q_5. ysadfghjk,kj.k/',
+//     Answers: [
+//       '1.dfghjfghgfh',
+//       '2. fghjkfghgfh',
+//       '3. fghjklcdfgfh  fghgfh',
+//       '4.dfghjfghgfh',
+//     ],
+//     Answer: 0,
+//     Explain:
+//       '5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555',
+//   },
+// ];
 
 export const Home = ({navigation}) => {
   const [index, setIndex] = useState(0);
+  const [Questions, setQuestionList] = useState([]);
   const [indexChoose, setIndexChoose] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [score, setScore] = useState(0);
 
   const [actualAnswer, setActualAnswer] = useState([]);
-
+  const Exp = '';
+  const url = 'http://vuongpshtdemoasm.herokuapp.com/question';
+  useEffect(() => {
+    getApi().then(() => {});
+  });
+  const getApi = async () => {
+    const data = await fetch(url);
+    const result = await data.json();
+    console.log(result);
+    setQuestionList(result)
+  };
+  // const totalScore = () => {
+  //   setScore(0);
+  //   let m = 0;
+  //   for (let i = 0; i < Questions.length; i++) {
+  //     if (actualAnswer[i] === Questions[i].Answer) {
+  //       m = m + 1;
+  //       setScore(m);
+  //     } else {
+  //     }
+  //   }
+  // };
   const totalScore = () => {
     setScore(0);
     let m = 0;
     for (let i = 0; i < Questions.length; i++) {
-      if (actualAnswer[i] === Questions[i].Answer) { 
+      if (actualAnswer[i] === Questions[i].Answer) {
         m = m + 1;
         setScore(m);
       } else {
       }
     }
   };
+
   console.log('score', score);
   const pressTouchable = () => {
     // setIndexChoose(True)
@@ -146,13 +171,14 @@ export const Home = ({navigation}) => {
           alignItems: 'stretch',
           position: 'absolute',
         }}>
-
-        <QuestionBox
-          actualAnswerSelect={i => onAnswerArray(i)}
-          color="pink"
-          question={Questions[index]}
-          ActualAnswer={actualAnswer[index]}
-        />
+        {Questions.length > 0 && (
+          <QuestionBox
+            actualAnswerSelect={i => onAnswerArray(i)}
+            color="pink"
+            question={Questions[index]}
+            ActualAnswer={actualAnswer[index]}
+          />
+        )}
         <TouchableOpacity
           style={{
             alignSelf: 'center',
@@ -217,6 +243,23 @@ export const Home = ({navigation}) => {
           onPress={() => navigation.navigate('Profile')}>
           <Text>Profile</Text>
         </TouchableOpacity>
+        <ScrollView
+          style={{
+            backgroundColor: 'white',
+            borderColor: 'blue',
+            borderRadius: 10,
+            borderWidth: 3,
+            padding: 10,
+            margin: 10,
+          }}>
+          <Text>
+            {actualAnswer[index] || actualAnswer[index] == 0 ? (
+              <Text>{Questions[index].Explain} </Text>
+            ) : (
+              <Text>'' </Text>
+            )}
+          </Text>
+        </ScrollView>
       </View>
     </View>
   );

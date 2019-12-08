@@ -17,6 +17,7 @@ export const QuestionBox = ({
   question,
   ActualAnswer,
   actualAnswerSelect,
+  
 }) => {
   const [trueIndex, setTrueIndex] = useState(null);
   // const [actuaAnswerSelect, setActuaAnswerSelect] = useState(null);

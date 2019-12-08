@@ -17,7 +17,7 @@ return(
        width: '100%',
        height: 40,
        backgroundColor: 'brown',
-       borderRadius: 20,
+       borderRadius: 0,
        alignItems: 'center',
        justifyContent: 'center',
        paddingVertical:0,

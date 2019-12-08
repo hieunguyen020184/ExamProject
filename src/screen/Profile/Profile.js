@@ -7,10 +7,10 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
-import {TextInput, ScrollView} from 'react-native-gesture-handler';
+import {TextInput, ScrollView,navigationOptions} from 'react-native-gesture-handler';
 
 const list = [
-  '1. Welding',
+  '1. Weldings1',
   '2.Inspector',
   '3. CWi',
   '4.ASME B31.1',
@@ -28,9 +28,11 @@ const list = [
 ];
 //navi ... pros
 export const Profile = ({navigation}) => {
+   const navigationOptions = {
+     title: 'Home',
+   };
   const [searchResult, setSearchResult] = useState(list);
   const _onSeach = ({text}) => {
-   console.log(text);
     if (text.trim().length > 0) {
       const result = searchResult.filter(e =>
         e.toLowerCase().includes(text.trim().toLowerCase()),
