@@ -14,7 +14,7 @@ import { imagesList } from '../../variable';
 
 
 const list = [
-  '1. Weldings1',
+  '1. Welding1',
   '2.Inspector',
   '3. CWi',
   '4.ASME B31.1',
