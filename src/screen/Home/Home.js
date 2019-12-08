@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import {QuestionBox} from '../../component/QuestionBox';
-import {AnswerBox} from '../../component/AnswerBox';
+import { QuestionBox } from '../../component/QuestionBox';
+import { AnswerBox } from '../../component/AnswerBox';
 
 // const Questions = [
 //   {
@@ -72,7 +72,7 @@ import {AnswerBox} from '../../component/AnswerBox';
 //   },
 // ];
 
-export const Home = ({navigation}) => {
+export const Home = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const [Questions, setQuestionList] = useState([]);
   const [indexChoose, setIndexChoose] = useState(false);
@@ -83,8 +83,10 @@ export const Home = ({navigation}) => {
   const Exp = '';
   const url = 'http://vuongpshtdemoasm.herokuapp.com/question';
   useEffect(() => {
-    getApi().then(() => {});
-  });
+    getApi().then(() => { });
+    return (() => {
+    })
+  }, []);
   const getApi = async () => {
     const data = await fetch(url);
     const result = await data.json();
@@ -114,7 +116,6 @@ export const Home = ({navigation}) => {
     }
   };
 
-  console.log('score', score);
   const pressTouchable = () => {
     // setIndexChoose(True)
     let m = index;
@@ -256,8 +257,8 @@ export const Home = ({navigation}) => {
             {actualAnswer[index] || actualAnswer[index] == 0 ? (
               <Text>{Questions[index].Explain} </Text>
             ) : (
-              <Text>'' </Text>
-            )}
+                <Text>'' </Text>
+              )}
           </Text>
         </ScrollView>
       </View>

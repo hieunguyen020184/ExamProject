@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   ViewScroll,
@@ -6,8 +6,12 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  Dimensions
 } from 'react-native';
-import {TextInput, ScrollView,navigationOptions} from 'react-native-gesture-handler';
+import { TextInput, ScrollView, navigationOptions } from 'react-native-gesture-handler';
+import Carousel from 'react-native-snap-carousel';
+import { imagesList } from '../../variable';
+
 
 const list = [
   '1. Weldings1',
@@ -27,12 +31,17 @@ const list = [
   '15. Welder',
 ];
 //navi ... pros
-export const Profile = ({navigation}) => {
-   const navigationOptions = {
-     title: 'Home',
-   };
+
+const { width, height } = Dimensions.get('window')
+export const Profile = ({ navigation }) => {
+  const navigationOptions = {
+    title: 'Home',
+  };
+  useEffect(() => {
+    console.log('cai nay chay khi moi vao')
+  }, [])
   const [searchResult, setSearchResult] = useState(list);
-  const _onSeach = ({text}) => {
+  const _onSeach = ({ text }) => {
     if (text.trim().length > 0) {
       const result = searchResult.filter(e =>
         e.toLowerCase().includes(text.trim().toLowerCase()),
@@ -42,14 +51,13 @@ export const Profile = ({navigation}) => {
       setSearchResult([...list]);
     }
   };
-  return (
-    <View style={{flex: 1}}>
+
+
+  const imageHeader = ({ item }) =>
+    (
       <ImageBackground
-        style={{width: '100%', height: 100}}
-        source={{
-          uri:
-            'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        }}>
+        style={{ width: '100%', height: 100 }}
+        source={item}>
         <View
           style={{
             position: 'absolute',
@@ -70,6 +78,25 @@ export const Profile = ({navigation}) => {
           </Text>
         </View>
       </ImageBackground>
+    )
+
+
+
+  const carousel = () => (
+    <Carousel
+      autoplay={true}
+      autoplayDelay={100}
+      data={imagesList}
+      renderItem={imageHeader}
+      sliderWidth={width}
+      itemWidth={width}
+    />
+
+  )
+
+  return (
+    <View style={{ flex: 1 }}>
+      {carousel()}
       <View
         style={{
           backgroundColor: 'green',
@@ -86,18 +113,19 @@ export const Profile = ({navigation}) => {
             paddingHorizontal: 20,
           }}
           onChangeText={t => {
-            const a ={
-              text : t,
+            const a = {
+              text: t,
               ahihi: 'ahihi'
             }
             _onSeach(a)
           }}
-          /// onChangeText={_onSeach}
+        /// onChangeText={_onSeach}
         />
       </View>
       <ScrollView>
         {searchResult.map((e, i) => (
           <View
+            key={i.toString()}
             style={{
               borderRadius: 5,
               borderWidth: 1,
@@ -110,8 +138,8 @@ export const Profile = ({navigation}) => {
             }}>
             {/* //title = {e} */}
             <TouchableOpacity
-              onPress={() => navigation.navigate('Welding', {title: e})}>
-              <Text style={{fontSize: 20}} key={i.toString}>
+              onPress={() => navigation.navigate('Welding', { title: e })}>
+              <Text style={{ fontSize: 20 }} >
                 {e}
               </Text>
             </TouchableOpacity>
@@ -129,7 +157,7 @@ export const Profile = ({navigation}) => {
           justifyContent: 'center',
         }}
         onPress={() => navigation.navigate('Home')}>
-        <Text style={{justifyContent: 'center'}}> Home </Text>
+        <Text style={{ justifyContent: 'center' }}> Home </Text>
       </TouchableOpacity>
     </View>
   );

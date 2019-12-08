@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export const AnswerBox = ({
   color,
@@ -13,6 +13,7 @@ export const AnswerBox = ({
     <View>
       {answers.map((e, i) => (
         <View
+          key={i.toString()}
           style={{
             borderRadius: 5,
             borderWidth: 1,
@@ -25,7 +26,7 @@ export const AnswerBox = ({
           }}>
           <TouchableOpacity onPress={() => pressTouchable(i)}>
             <Text
-              key={i.toString}
+
               style={
                 trueIndex === i
                   ? trueIndex === trueAnswer
