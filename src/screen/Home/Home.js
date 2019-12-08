@@ -104,6 +104,8 @@ export const Home = ({ navigation }) => {
   //     }
   //   }
   // };
+
+  //change
   const totalScore = () => {
     setScore(0);
     let m = 0;
