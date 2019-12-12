@@ -8,13 +8,13 @@ import {Welding} from '../screen/Welding/Welding';
 
 const AppStack = createStackNavigator(
   {
-    Home : {
-      screen: Home,
-      title: 'Home'
-    },
+    Home,
     Profile,
     Welding,
   },
+  {
+    headerMode: 'none',
+  },
 );
 
-export const RootStack = createAppContainer(AppStack)
+export const RootStack = createAppContainer(AppStack);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   ViewScroll,
@@ -6,12 +6,17 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  Dimensions
+  Dimensions,
 } from 'react-native';
-import { TextInput, ScrollView, navigationOptions } from 'react-native-gesture-handler';
+import {
+  TextInput,
+  ScrollView,
+  navigationOptions,
+} from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
-import { imagesList } from '../../variable';
-
+import {imagesList} from '../../variable';
+import {CusIcon} from '../../component/CusIcon';
+import { CusHeader } from '../../component/CusHeader';
 
 const list = [
   '1. Welding1',
@@ -32,16 +37,16 @@ const list = [
 ];
 //navi ... pros
 
-const { width, height } = Dimensions.get('window')
-export const Profile = ({ navigation }) => {
+const {width, height} = Dimensions.get('window');
+export const Profile = ({navigation}) => {
   const navigationOptions = {
     title: 'Home',
   };
   useEffect(() => {
-    console.log('cai nay chay khi moi vao')
-  }, [])
+    console.log('cai nay chay khi moi vao');
+  }, []);
   const [searchResult, setSearchResult] = useState(list);
-  const _onSeach = ({ text }) => {
+  const _onSeach = ({text}) => {
     if (text.trim().length > 0) {
       const result = searchResult.filter(e =>
         e.toLowerCase().includes(text.trim().toLowerCase()),
@@ -52,50 +57,62 @@ export const Profile = ({ navigation }) => {
     }
   };
 
+  //  const  i = ({index}) =>{
 
-  const imageHeader = ({ item }) =>
-    (
-      <ImageBackground
-        style={{ width: '100%', height: 100 }}
-        source={item}>
-        <View
+  //   if (index == imagesList.length ) {
+  //   index = 0
+  // }
+  // }
+
+  const imageHeader = ({item}) => (
+    <ImageBackground style={{width: '100%', height: 100}} source={item}>
+      <View
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          justifyContent: 'center',
+          alignItems: 'baseline',
+        }}>
+        <Text
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            justifyContent: 'center',
-            alignItems: 'baseline',
+            fontSize: 30,
+            fontWeight: 'bold',
+            color: 'red',
           }}>
-          <Text
-            style={{
-              fontSize: 30,
-              fontWeight: 'bold',
-              color: 'red',
-            }}>
-            Profile
-          </Text>
-        </View>
-      </ImageBackground>
-    )
-
-
+          Profile
+        </Text>
+      </View>
+    </ImageBackground>
+  );
 
   const carousel = () => (
     <Carousel
       autoplay={true}
+      loop={true}
       autoplayDelay={100}
       data={imagesList}
       renderItem={imageHeader}
       sliderWidth={width}
       itemWidth={width}
     />
-
-  )
+  );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
+      <CusHeader
+        title={'Profile'}
+        typeL={'AntDesign'}
+        colorL={'grey'}
+        sizeL={30}
+        nameL={'arrowleft'}
+        typeR={'AntDesign'}
+        colorR={'grey'}
+        sizeR={30}
+        nameR={'arrowright'}
+      />
       {carousel()}
       <View
         style={{
@@ -115,11 +132,11 @@ export const Profile = ({ navigation }) => {
           onChangeText={t => {
             const a = {
               text: t,
-              ahihi: 'ahihi'
-            }
-            _onSeach(a)
+              ahihi: 'ahihi',
+            };
+            _onSeach(a);
           }}
-        /// onChangeText={_onSeach}
+          /// onChangeText={_onSeach}
         />
       </View>
       <ScrollView>
@@ -138,10 +155,21 @@ export const Profile = ({ navigation }) => {
             }}>
             {/* //title = {e} */}
             <TouchableOpacity
-              onPress={() => navigation.navigate('Welding', { title: e })}>
-              <Text style={{ fontSize: 20 }} >
-                {e}
-              </Text>
+              onPress={() => navigation.navigate('Welding', {title: e})}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <Text style={{fontSize: 20}}>{e}</Text>
+                <CusIcon
+                  type={'Entypo'}
+                  name={'arrow-long-right'}
+                  color={'black'}
+                  size={40}
+                />
+              </View>
             </TouchableOpacity>
           </View>
         ))}
@@ -157,7 +185,7 @@ export const Profile = ({ navigation }) => {
           justifyContent: 'center',
         }}
         onPress={() => navigation.navigate('Home')}>
-        <Text style={{ justifyContent: 'center' }}> Home </Text>
+        <Text style={{justifyContent: 'center'}}> Home </Text>
       </TouchableOpacity>
     </View>
   );

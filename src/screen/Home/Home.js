@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,12 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import { QuestionBox } from '../../component/QuestionBox';
-import { AnswerBox } from '../../component/AnswerBox';
+import {QuestionBox} from '../../component/QuestionBox';
+import {AnswerBox} from '../../component/AnswerBox';
+import {CusIcon} from '../../component/CusIcon';
+import {CusHeader} from '../../component/CusHeader';
 
-// const Questions = [
+// const Questions1 = [
 //   {
 //     Question: 'Q_1. 11111/',
 //     Answers: [
@@ -72,7 +74,7 @@ import { AnswerBox } from '../../component/AnswerBox';
 //   },
 // ];
 
-export const Home = ({ navigation }) => {
+export const Home = ({navigation}) => {
   const [index, setIndex] = useState(0);
   const [Questions, setQuestionList] = useState([]);
   const [indexChoose, setIndexChoose] = useState(false);
@@ -83,29 +85,16 @@ export const Home = ({ navigation }) => {
   const Exp = '';
   const url = 'http://vuongpshtdemoasm.herokuapp.com/question';
   useEffect(() => {
-    getApi().then(() => { });
-    return (() => {
-    })
+    getApi().then(() => {});
+    return () => {};
   }, []);
   const getApi = async () => {
     const data = await fetch(url);
     const result = await data.json();
     console.log(result);
-    setQuestionList(result)
+    setQuestionList(result);
   };
-  // const totalScore = () => {
-  //   setScore(0);
-  //   let m = 0;
-  //   for (let i = 0; i < Questions.length; i++) {
-  //     if (actualAnswer[i] === Questions[i].Answer) {
-  //       m = m + 1;
-  //       setScore(m);
-  //     } else {
-  //     }
-  //   }
-  // };
 
-  //change
   const totalScore = () => {
     setScore(0);
     let m = 0;
@@ -166,14 +155,28 @@ export const Home = ({ navigation }) => {
             backgroundColor: `rgba(155, 0, ${colorrr}, 0.7)`,
           }}></View>
       </ImageBackground>
+
       <View
         style={{
           flex: 1,
           width: '100%',
-          paddingTop: 20,
           alignItems: 'stretch',
           position: 'absolute',
         }}>
+        <CusHeader
+          title={'Home'}
+          typeL={'AntDesign'}
+          colorL={'blue'}
+          sizeL={30}
+          navigaL = {''}
+          nameL={''}
+          typeR={'AntDesign'}
+          colorR={'blue'}
+          sizeR={30}
+          nameR={'arrowright'}
+          navigaR = {'profile'}
+        />
+
         {Questions.length > 0 && (
           <QuestionBox
             actualAnswerSelect={i => onAnswerArray(i)}
@@ -215,7 +218,7 @@ export const Home = ({ navigation }) => {
               margin: 20,
             }}
             onPress={pressBackTouchable}>
-            <Text> BACK</Text>
+            <Text>BACK</Text>
           </TouchableOpacity>
         )}
         {isDone && (
@@ -244,7 +247,15 @@ export const Home = ({ navigation }) => {
             margin: 20,
           }}
           onPress={() => navigation.navigate('Profile')}>
-          <Text>Profile</Text>
+          <Text>
+            <CusIcon
+              type={'AntDesign'}
+              color={'white'}
+              size={30}
+              name={'arrowleft'}
+            />
+            Profile
+          </Text>
         </TouchableOpacity>
         <ScrollView
           style={{
@@ -259,8 +270,8 @@ export const Home = ({ navigation }) => {
             {actualAnswer[index] || actualAnswer[index] == 0 ? (
               <Text>{Questions[index].Explain} </Text>
             ) : (
-                <Text>'' </Text>
-              )}
+              <Text>'' </Text>
+            )}
           </Text>
         </ScrollView>
       </View>
@@ -270,7 +281,7 @@ export const Home = ({ navigation }) => {
 const s = StyleSheet.create({
   flex: {
     flex: 1,
-    // backgroundColor: 'blue',
+    backgroundColor: 'blue',
     //justifyContent: 'center',
     alignItems: 'center',
   },
